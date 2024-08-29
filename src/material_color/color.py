@@ -5,6 +5,14 @@ from importlib.resources import files
 
 
 def load_color(sorted_by_color: bool = True) -> dict:
+    """Load available colors material
+
+    Args:
+        sorted_by_color (bool, optional): Whether to sort by color. Defaults to True.
+
+    Returns:
+        dict: Available colors
+    """
     data = (files("material_color.resources")
             .joinpath('material-colors.json')
             .read_text())
@@ -18,6 +26,11 @@ def load_color(sorted_by_color: bool = True) -> dict:
 
 
 def generate_random_color() -> str:
+    """Generate random color in hex
+
+    Returns:
+        str: Random color in hex
+    """
     color_json = load_color()
     color_key = random.choice(get_all_colors())
     random_color = random.choice(list(color_json[color_key].keys()))
@@ -25,10 +38,20 @@ def generate_random_color() -> str:
 
 
 def get_all_colors() -> list[str]:
+    """Get all available named colors
+
+    Returns:
+        list[str]: Available colors
+    """
     return list(load_color().keys())
 
 
 def get_color(color_key: str) -> list[str]:
+    """Get color by name
+
+    Returns:
+        list[str]: Available colors in hex
+    """
     assert color_key in get_all_colors(), f"Color must be in {get_all_colors()}"
     return load_color()[color_key]
 
