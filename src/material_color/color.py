@@ -46,7 +46,7 @@ def get_all_colors() -> list[str]:
     return list(load_color().keys())
 
 
-def get_color(color_key: str) -> list[str]:
+def get_color(color_key: str) -> dict[str, str]:
     """Get color by name
 
     Returns:
@@ -54,6 +54,21 @@ def get_color(color_key: str) -> list[str]:
     """
     assert color_key in get_all_colors(), f"Color must be in {get_all_colors()}"
     return load_color()[color_key]
+
+
+def get_color_list() -> list[str]:
+    """Get hex color as list
+
+    Returns:
+        list[str]: Available colors in hex
+    """
+    colors: list[str] = []
+    keys: list[str] = get_all_colors()
+    for key in keys:
+        for color in get_color(key).values():
+            colors.append(color)
+
+    return colors
 
 
 df: pd.DataFrame = pd.DataFrame(load_color())
